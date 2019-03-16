@@ -89,6 +89,19 @@ pub enum SampleEventType {
     Metadata,
 }
 
+pub struct SampleArgs {
+    /// An arbitrary payload to associate with the sample. 
+    pub payload: Option<TracePayloadT>,
+
+    /// The name to associate with the pid/tid.  Whether it's associated with
+    /// the pid or the tid depends on the name of the event
+    /// via process_name/thread_name respectively.
+    pub metadata_name: Option<StrCow>,
+
+    /// Sorting priority between processes/threads in the view.
+    pub metadata_sort_index: Option<i32>,
+}
+
 /// For more details see pg. 4, top list in
 /// [Trace Event Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU) document.
 pub struct Sample {
