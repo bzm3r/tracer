@@ -1,3 +1,6 @@
+use std::borrow::Cow;
+pub type StrCow = Cow<'static, str>;
+
 /// For more details see pg. 4, top list in [Trace Event Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU) doc.
 pub struct Sample {
     /// The name of the event to be shown.
