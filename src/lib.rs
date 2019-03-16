@@ -89,8 +89,18 @@ pub enum SampleEventType {
     Metadata,
 }
 
+#[cfg(all(not(feature = "dict_payload"), not(feature = "json_payload")))]
+pub type TracePayloadT = StrCow;
+
+#[cfg(feature = "json_payload")]
+pub type TracePayloadT = serde_json::Value;
+
+#[cfg(feature = "dict_payload")]
+pub type TracePayloadT = std::collections::HashMap<StrCow, StrCow>;
+
 pub struct SampleArgs {
-    /// An arbitrary payload to associate with the sample. 
+    /// An arbitrary payload to associate with the sample. Type is controlled by features
+    /// (default string).
     pub payload: Option<TracePayloadT>,
 
     /// The name to associate with the pid/tid.  Whether it's associated with
