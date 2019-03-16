@@ -1,7 +1,16 @@
 use std::borrow::Cow;
 pub type StrCow = Cow<'static, str>;
 
-/// For more details see pg. 4, top list in [Trace Event Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU) doc.
+/// List of category tags to apply to the event. Category tags can be used to hide events
+/// in the Trace Viewer UI.
+#[derive(Clone, Debug)]
+pub enum CategoriesT {
+    StaticArray(&'static [&'static str]),
+    DynamicArray(Vec<String>),
+}
+
+/// For more details see pg. 4, top list in
+/// [Trace Event Format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU) document.
 pub struct Sample {
     /// The name of the event to be shown.
     pub name: StrCow,
